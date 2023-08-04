@@ -65,3 +65,25 @@ def get_db() -> MySQLConnection:
         database=name
     )
     return db_connector
+
+
+def main():
+    """Obtain a db connection, retrieve all rows users table and
+    display each row under a filtered format"""
+    all_PII_FIELDS = ("name", "email", "phone", "ssn",
+                      "password", "ip", "last_login", "user_agent")
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    for row in cursor:
+        infos = "; ".join([f"{all_PII_FIELDS[i]}={row[i]}" for i in range(8)])
+        log_record = logging.LogRecord("user_data", logging.INFO,
+                                       None, None, infos, None, None)
+        formatter = RedactingFormatter(list(PII_FIELDS))
+        print(formatter.format(log_record))
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
