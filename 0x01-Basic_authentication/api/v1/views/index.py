@@ -30,3 +30,9 @@ def stats() -> str:
 def unauth_access() -> str:
     """Error handler"""
     return abort(401)
+
+
+@app_views.route('forbidden/', strict_slashes=False)
+def forbidden_acc() -> str:
+    """Error handling"""
+    return abort(403)
