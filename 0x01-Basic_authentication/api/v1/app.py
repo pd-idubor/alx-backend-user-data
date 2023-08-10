@@ -20,6 +20,7 @@ if os.getenv('AUTH_TYPE') == 'auth':
 
 @app.before_request
 def before_req_callback():
+    """Before_request handler"""
     if auth is None:
         return
     auth_list = ['/api/v1/status/', '/api/v1/unauthorized/',
