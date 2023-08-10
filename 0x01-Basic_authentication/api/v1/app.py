@@ -26,7 +26,7 @@ def before_req_callback():
     auth_list = ['/api/v1/status/', '/api/v1/unauthorized/',
                  '/api/v1/forbidden/']
     print(request.path)
-    if auth.require_auth(request.path, auth_list) == False:
+    if auth.require_auth(request.path, auth_list) is False:
         return
     if auth.authorization_header(request) is None:
         abort(401)
