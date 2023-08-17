@@ -86,6 +86,7 @@ class Auth:
             raise ValueError
         return None
 
+
 def _hash_password(password: str) -> bytes:
     """Returns salted hash of the input password"""
     hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
