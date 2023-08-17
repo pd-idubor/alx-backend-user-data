@@ -6,9 +6,10 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return jsonify("message": "Bienvenue")
+@app.route('/', strict_slashes=False)
+def index() -> str:
+    """Index page"""
+    return jsonify({"message": "Bienvenue"})
 
 
 if __name__ == "__main__":
