@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Basic Flask app"""
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
-import requests
 
 
 AUTH = Auth()
@@ -15,10 +15,10 @@ def index() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/users', method=['POST'], strict_slashes=False)
+@app.route('/users', methods=['POST'], strict_slashes=False)
 def users() -> str:
     """Register user"""
-    email = requests.request.form.get('email')
+    email = request.form.get('email')
     password = request.form.get('password')
     try:
         AUTH.register_user(email, password)
